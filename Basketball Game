@@ -1,0 +1,74 @@
+import tsk, pygame
+
+pygame.init()
+
+score1 = 0
+
+score2 = 0
+
+c = pygame.time.Clock()
+
+window = pygame.display.set_mode([1018, 573])
+
+basket = tsk.Sprite("BasketballHoopSide.png", 0, 200)
+                    
+basket2 = tsk.Sprite("BasketballHoopSide.png", 800, 200)
+
+ball = tsk.Sprite("Ball.png", 0, 0)
+
+basket2.flip_x = True
+
+background = tsk.Sprite("FantasyPlains.jpg", 0, 0)
+
+following = True
+
+drawing = True
+
+while drawing:
+    
+    for event in pygame.event.get():
+    
+        if event.type == pygame.QUIT:
+        
+            drawing = False
+            
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            
+            following = True
+            
+        if event.type == pygame.MOUSEBUTTONUP:
+            
+            following = False
+
+    if following:
+        
+        ball.center = pygame.mouse.get_pos()
+
+    
+    if pygame.sprite.collide(ball, basket):
+        
+        score1 += 2
+        
+        print("Team 1 scored! The score is now " + str(score1) + " : " + str(score2))
+        
+
+        
+    if pygame.sprite.collide_rect(ball, basket2):
+        
+        score2 += 2
+        
+        print("Team 2 scored! The score is now " + str(score1) + " : " + str(score2))
+        
+
+        
+    background.draw()
+    
+    ball.draw()
+    
+    basket.draw()
+    
+    basket2.draw()
+    
+    pygame.display.flip()
+    
+    c.tick(30)
